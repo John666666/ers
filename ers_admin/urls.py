@@ -18,4 +18,6 @@ urlpatterns = [
     url(r'^update_client', views.update_client, name='update_client'),
     url(r'^client_to_update', views.client_to_update, name='client_to_update'),
     url(r'^browse_client', views.browse_client, name='browse_client'),
+    url(r'^client_locus', views.client_locus, name='client_locus'),
+    url(r'^nim_call', views.nim_call, name='nim_call'),
 ]

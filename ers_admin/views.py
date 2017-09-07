@@ -44,6 +44,22 @@ def browse_client(request):
     context = {"client_list": client_list}
     return HttpResponse(render(request, "client_interaction.html", context))
 
+def client_locus(request):
+    return HttpResponse(render(request, "client_locus.html", context={}))
+
+def nim_call(request):
+    client_id = request.GET["client_id"]
+    if client_id is None:
+        return HttpResponse(json.dumps({"statusCode": "300", "message": "缺少终端号参数"}))
+
+    client = Client.getone(client_id=client_id)
+    if client is None:
+        return HttpResponse(json.dumps({"statusCode": "300", "message": "终端%s不存在" % client_id}))
+    token = client.token
+    context = {"client_id": client_id, "token": token}
+    return HttpResponse(render(request, "nim_call.html", context))
+
+
 def save_client(request):
     client_id = request.POST['client_id']
     client_name = request.POST['client_name']
