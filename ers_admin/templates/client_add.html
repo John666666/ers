@@ -1,0 +1,22 @@
+<div class="pageContent">
+	<form method="post" action="add_client" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>终端ID：</label>
+				<input name="client_id" type="text" size="30" class="required" />
+			</p>
+			<p>
+				<label>使用人：</label>
+				<input name="client_name" class="required" type="text" size="30" alt="终端使用人姓名"/>
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

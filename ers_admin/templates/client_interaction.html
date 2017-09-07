@@ -1,0 +1,60 @@
+<div class="pageContent" layoutH="0" style="padding: 10px;">
+
+    <style type="text/css">
+        .client_container {
+            width: 100%;
+        }
+        .client_box {
+            width: 200px;
+            height: 230px;
+            margin: 10px;
+            display: inline-block;
+        }
+        .client {
+            width:180px;
+            height: 180px;
+            margin: 0 auto;
+            border: 1px solid grey;
+            border-radius: 15px;
+            text-align: center;
+            line-height: 180px;
+            vertical-align: middle;
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        .client_toolbar {
+            width:180px;
+            height: 48px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        a.link-button {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: 1px solid grey;
+        }
+
+        a.client-bar-button {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+    </style>
+
+    <div class = "client_container">
+        {% for client in client_list %}
+        <div class = "client_box">
+            <div class = "client">
+                {{ client.client_name }}
+            </div>
+            <div class = "client_toolbar">
+                <a class="link-button client-bar-button" href="#">呼叫</a>
+                <a class="link-button client-bar-button" href="#">足迹</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<form id="pagerForm" method="post" action="client_list">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="20" />
+	<input type="hidden" name="orderField" value="${param.orderField}" />
+	<input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+</form>
+
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>终端ID：</label>
+				<input type="text" name="client_id" value="{{ client_id|default:"" }}"/>
+			</li>
+			<li>
+				<label>终端名称：</label>
+				<input type="text" name="client_name" value="{{ client_name|default:"" }}"/>
+			</li>
+            <li>
+			<select id="status" name="status">
+				<option value="">--不限--</option>
+				<option value="1">正常状态</option>
+				<option value="0">锁定状态</option>
+			</select>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="client_add.html" target="dialog"><span>添加终端</span></a></li>
+			<li><a class="edit" href="client_to_update?id={sid_client}" target="dialog" warn="请选择一个终端"><span>编辑</span></a></li>
+            <!--
+            <li><a title="确实要删除这些终端吗?" target="selectedTodo" rel="ids" postType="string" href="delete_clients" class="delete"><span>批量删除终端</span></a></li>
+            <li class="line">line</li>
+			<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+			-->
+		</ul>
+	</div>
+    <table class="table" width="100%" layoutH="138">
+		<thead>
+			<tr>
+				<!--
+                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+				-->
+				<th width="190" orderField="client_id" class="asc">终端ID</th>
+				<th>终端名称</th>
+				<th width="80">终端状态</th>
+				<th width="180">接入时间</th>
+                <th width="180">修改时间</th>
+				<th width="80" align="center">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+            {% for client in client_list %}
+            <tr target="sid_client" rel="{{ client.id }}">
+				<!--
+                <td><input name="ids" value="{{ client.id }}" type="checkbox"></td>
+				-->
+				<td>{{ client.client_id }}</td>
+				<td>{{ client.client_name }}</td>
+				<td>
+                    {% if client.status == 0 %}
+                    锁定
+                    {% elif client.status == 1 %}
+                    正常
+                    {% else %}
+                    未知
+                    {% endif %}
+                </td>
+				<td>{{ client.create_time|date:"Y-m-d " }}{{ client.create_time|time:"H:i:s" }}</td>
+				<td>{{ client.update_time|date:"Y-m-d " }}{{ client.update_time|time:"H:i:s" }}</td>
+				<td>
+					{% if client.status == 0 %}
+                    <a target="ajaxTodo" href="active_client?id={{client.id}}" class="btnAdd">激活</a>
+                    {% elif client.status == 1 %}
+                    <a title="确认要注销此终端吗？" target="ajaxTodo" href="disable_client?id={{client.id}}" class="btnDel">注销</a>
+                    {% endif %}
+                    <!--
+                    <a title="确认要删除此终端吗？" target="ajaxTodo" href="delete_client?id={{client.id}}" class="btnDel">删除</a>
+                    -->
+				</td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+				<option value="200">200</option>
+			</select>
+			<span>条，共{{totalSize}}条</span>
+		</div>
+		<div class="pagination" targetType="navTab" totalCount="{{totalSize}}" numPerPage="20" pageNumShown="10" currentPage="{{currentPage}}"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    var select_status_val = "{{ status }}";
+    if(!select_status_val || "None" == select_status_val){
+        $("#status option:first").attr('selected','selected');
+    } else {
+        $("#status").val(select_status_val);
+    }
+</script>

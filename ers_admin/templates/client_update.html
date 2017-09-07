@@ -1,0 +1,39 @@
+<div class="pageContent">
+	<form method="post" action="update_client" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>终端ID：</label>
+				<input name="id" value="{{ client.id }}" type="hidden" size="30" />
+                <input name="client_id" value="{{ client.client_id }}" type="text" size="30" readonly />
+			</p>
+			<p>
+				<label>使用人：</label>
+				<input name="client_name" value="{{ client.client_name }}" class="required" type="text" size="30" />
+			</p>
+            <p>
+				<label>当前状态：</label>
+                {% if client.status == 0 %}
+				    <label>锁定</label>
+                {% else %}
+                    <label>正常</label>
+                {% endif %}
+			</p>
+            <p>
+				<label>接入时间：</label>
+                <label>{{ client.create_time|date:"Y-m-d " }}{{ client.create_time|time:"H:i:s" }}</label>
+			</p>
+            <p>
+				<label>最后修改时间：</label>
+                <label>{{ client.update_time|date:"Y-m-d " }}{{ client.update_time|time:"H:i:s" }}</label>
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
