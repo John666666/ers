@@ -32,14 +32,14 @@
 
         a.link-button {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 6px 10px;
             border-radius: 10px;
             border: 1px solid grey;
         }
 
         a.client-bar-button {
             margin-top: 10px;
-            margin-right: 10px;
+            margin-right: 5px;
         }
 
     </style>
@@ -51,10 +51,15 @@
                 {{ client.client_name }}
             </div>
             <div class = "client_toolbar">
-                <a class="link-button client-bar-button" href="#">呼叫</a>
-                <a class="link-button client-bar-button" href="#">足迹</a>
+                <!-- 打开外部网页
+                <a class="link-button client-bar-button" href="http://www.baidu.com" target="navTab" external="true" rel="nim_call">视频通话</a>
+                -->
+                <a class="link-button client-bar-button" href="#" target="navTab" rel="nim_call">视频通话</a>
+                <a class="link-button client-bar-button" href="#" target="navTab" rel="locus">位置轨迹</a>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
+
