@@ -1308,6 +1308,7 @@ fn.onCallingRejected = function (obj) {
     this.showTip("对方已拒绝", 2000, this.hideAllNetcallUI.bind(this));
     this.clearCallTimer();
     this.sendLocalMessage("对方已拒绝");
+	window.top.navTab.closeCurrentTab('nim_call');
 };
 
 // 发起音视频呼叫
@@ -1384,6 +1385,7 @@ fn.doCalling = function (type) {
         }
 
     }.bind(this));
+	$("#toggleFullScreenButton").click();
 };
 
 fn.setDeviceAudioIn = function (state) {

@@ -33,7 +33,7 @@
 						<div class="netcall-calling-box hide">
 							<img alt="用户头像" class="avatar">
 							<div class="nick"></div>
-							<div class="tip">1等待对方接听...</div>
+							<div class="tip">等待对方接听...</div>
 							<div class="op">
 								<button id="callingHangupButton" class="netcall-button red">挂断</button>
 							</div>
@@ -452,24 +452,25 @@
 
     <script>
 
-        var uid = {{ accid }};
-        var sdktoken = {{ token }};
-        var faccid = {{ faccid }};
+        var uid = "{{ accid }}";
+        var sdktoken = "{{ token }}";
+        var faccid = "{{ faccid }}";
         /**
          * 主要业务逻辑相关
          */
-        setCookie('uid','18668938752');
+        setCookie('uid',uid); // '18668938752'
                 //自己的appkey就不用加密了
                 // setCookie('sdktoken',pwd);
-        setCookie('sdktoken','741b497aecce23ccdedc81d6b645a1ca');
+        setCookie('sdktoken',sdktoken); // '741b497aecce23ccdedc81d6b645a1ca'
         var userUID = readCookie("uid")
         /**
          * 实例化
          * @see module/base/js
          */
         var yunXin = new YX(userUID)
-        yunXin.openChatBox('356521041000146',"p2p");
+        yunXin.openChatBox(faccid,"p2p"); // '356521041000146'
         yunXin.myNetcall.onClickNetcallLink(Netcall.NETCALL_TYPE_AUDIO);
+
     </script>
 </body>
 
