@@ -6,7 +6,7 @@ from django.contrib import admin
 
 # Create your models here.
 from django.db.models.functions import Coalesce
-
+import json
 
 class Client(models.Model):
     u"""
@@ -58,3 +58,9 @@ class Client(models.Model):
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('client_name', 'client_id', 'token', 'create_time', 'update_time',)
     search_fields = ('client_name',)
+
+class ClientJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Client):
+            return {"client_id": obj.client_id, "client_name": obj.client_name}
+        return json.JSONEncoder.default(self, obj)

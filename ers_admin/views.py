@@ -52,6 +52,10 @@ def login(request):
         ret = {"code": 300, "message": "登录失败!"}
     return HttpResponse(json.dumps(ret))
 
+def logout(request):
+    request.session.clear()
+    return HttpResponse(render(request, "logout.html"))
+
 def list_client(request):
     u"""
         分布查询终端

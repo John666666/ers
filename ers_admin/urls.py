@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^nim_call$', views.nim_call, name='nim_call'),
     url(r'^nim_call_inner', views.nim_call_inner, name='nim_call_inner'),
     url(r'^login$', views.login, name='login'),
+    url(r'^logout', views.logout, name='logout'),
 ]

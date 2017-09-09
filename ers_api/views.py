@@ -51,20 +51,25 @@ def save_locus(request):
     latitude = request.POST["latitude"]
     try:
         Locus.save_locus(client_id, longitude, latitude)
-        return HttpResponse({"message": "保存成功", "code": 200})
+        return HttpResponse(json.dumps({"message": "保存成功", "code": 200}, ensure_ascii=False))
     except Exception, e:
-        return HttpResponse({"message": "%s" % e, "code": 300})
+        return HttpResponse(json.dumps({"message": "%s" % e, "code": 300}, ensure_ascii=False))
 
 def get_nim_friends(request):
     client_id = request.POST["client_id"]
+    ret = None
     try:
         client_list = NimUtils.get_nim_friends(client_id)
-        if client_list is None:
-            return HttpResponse({"message": "获取好友失败", "code": 300})
-        return HttpResponse({"result": "%s" % json.dumps(client_list), "code": 200})
+        if not client_list:
+            ret = {"message": "获取好友失败", "code": 300}
+        else:
+            ret = {"result": client_list, "code": 200}
     except Exception, e:
-        return HttpResponse({"message": "%s" % e, "code": 300})
-
+        ret = {"message": "%s" % e, "code": 300}
+    if not ret:
+        ret = {"message": "获取好友失败", "code": 300}
+    from ers_admin.models import ClientJSONEncoder
+    return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=ClientJSONEncoder))
 
 service_handler_dic = {
     "get_nim_token": get_nim_token,

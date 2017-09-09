@@ -19,4 +19,5 @@ class SimpleMiddleware(MiddlewareMixin):
             if user and user == sys_constant.admin_count:
                 pass
             else:
-                return HttpResponseRedirect('login.html')
+                return redirect("login.html")
+                # return HttpResponseRedirect('login.html')

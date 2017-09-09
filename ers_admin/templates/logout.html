@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>执法记录仪后台管理系统</title>
+</head>
+<body>
+    <h4>您已安全退出，系统将在<span id="secondContext" style="font-size: 28px; font-weight: bold;"></span>秒后自动跳转到登录页</h4>
+</body>
+<script type="text/javascript">
+    var delaySecond = 5;
+    var spanSecond = document.getElementById("secondContext");
+
+    function to_login() {
+        if(delaySecond > 0) {
+            spanSecond.innerText = delaySecond+"";
+            delaySecond--;
+            setTimeout(to_login, 1000);
+        } else {
+            window.location = "login.html";
+        }
+    }
+    to_login();
+</script>
+</html>

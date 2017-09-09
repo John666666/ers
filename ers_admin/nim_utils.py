@@ -133,23 +133,26 @@ class NimUtils:
             if req.status_code != 200:
                 raise HTTPError("请求失败")
             ret_json = req.json()
-            if ret_json['info']['code'] != 200:
+            print "请求网易好友关系: %s" % ret_json
+            if ret_json['code'] != 200:
                 return False
             # 从网易获取所有好友账号， 然后从关联其它资料
             client_list = []
             from models import Client
             for friend in ret_json["friends"]:
-                faccid = friend.faccid
+                faccid = friend["faccid"]
                 if not faccid:
                     continue
                 client = Client.getone(client_id=faccid)
                 if client is not None:
                     client_list.append(client)
-
+            print client_list
             # 按名称排序
-            client_list.sort(key=lambda item:item.client_name)
+            client_list.sort(key=lambda item: item.client_name)
+            print "好友client_list: %s" % client_list
             return client_list
-        except:
+        except Exception,e:
+            print e
             return False
 
     @classmethod
