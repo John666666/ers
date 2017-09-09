@@ -106,6 +106,18 @@ def nim_call(request):
     context = {"accid": accid, "token": token, "faccid": client_id}
     return HttpResponse(render(request, "nim_call.html", context))
 
+def nim_call_inner(request):
+    client_id = request.GET["client_id"]
+    if client_id is None:
+        return HttpResponse(json.dumps({"statusCode": "300", "message": "缺少终端号参数"}))
+    #获取本方账号信息
+    client = Client.getone(client_id=sys_constant.admin_count)
+    if client is None:
+        return HttpResponse(json.dumps({"statusCode": "300", "message": "请登录后再进行此操作"}))
+    accid = client.client_id
+    token = client.token
+    context = {"accid": accid, "token": token, "faccid": client_id}
+    return HttpResponse(render(request, "nim_call_inner.html", context))
 
 def save_client(request):
     u"""

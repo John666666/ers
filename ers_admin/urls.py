@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^client_to_update', views.client_to_update, name='client_to_update'),
     url(r'^browse_client', views.browse_client, name='browse_client'),
     url(r'^client_locus', views.client_locus, name='client_locus'),
-    url(r'^nim_call', views.nim_call, name='nim_call'),
+    url(r'^nim_call$', views.nim_call, name='nim_call'),
+    url(r'^nim_call_inner', views.nim_call_inner, name='nim_call_inner'),
     url(r'^login$', views.login, name='login'),
 ]
