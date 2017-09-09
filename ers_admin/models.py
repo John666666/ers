@@ -9,6 +9,9 @@ from django.db.models.functions import Coalesce
 
 
 class Client(models.Model):
+    u"""
+        Client增删改查操作
+    """
     client_id = models.CharField(max_length=200)
     client_name = models.CharField(max_length=200)
     token = models.CharField(max_length=200, null=True)

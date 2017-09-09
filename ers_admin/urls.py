@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^browse_client', views.browse_client, name='browse_client'),
     url(r'^client_locus', views.client_locus, name='client_locus'),
     url(r'^nim_call', views.nim_call, name='nim_call'),
+    url(r'^login$', views.login, name='login'),
 ]

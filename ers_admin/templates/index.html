@@ -75,7 +75,7 @@
 <script type="text/javascript">
 $(function(){
 	DWZ.init("{% static  "dwz.frag.xml" %}", {
-		loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
+		loginUrl:"login.html", loginTitle:"登录",	// 弹出登录对话框
 //		loginUrl:"login.html",	// 跳到登录页面
 		statusCode:{ok:200, error:300, timeout:301}, //【可选】
 		pageInfo:{pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
@@ -97,7 +97,7 @@ $(function(){
 			<div class="headerNav">
 				<a style="margin-left: 10px; margin-top: 5px;" class="logo" href="http://www.luobotec.com">标志</a>
 				<ul class="nav">
-					<li><a href="javascript:void(0);">欢迎，admin</a></li>
+					<li><a href="javascript:void(0);">欢迎，{{ user }}</a></li>
 					<li><a href="login.html">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
