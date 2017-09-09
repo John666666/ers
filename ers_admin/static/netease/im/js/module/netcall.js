@@ -1027,6 +1027,7 @@ fn.hangup = function () {
     this.resizeChatContent();
     /**状态重置 */
     this.resetWhenHangup();
+	window.top.navTab.closeCurrentTab('nim_call');
 };
 // 其它端已处理
 fn.onCallerAckSync = function (obj) {
