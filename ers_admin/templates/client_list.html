@@ -65,7 +65,7 @@
 				<!--
                 <td><input name="ids" value="{{ client.id }}" type="checkbox"></td>
 				-->
-				<td>{{ client.client_id }}</td>
+				<td><a href="client_to_update?id={{ client.id }}" target="dialog">{{ client.client_id }}</a></td>
 				<td>{{ client.client_name }}</td>
 				<td>
                     {% if client.status == 0 %}
