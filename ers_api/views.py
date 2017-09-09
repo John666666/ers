@@ -19,7 +19,7 @@ def get_nim_token(request):
     if client_id is not None:
         client = Client.getone(client_id=client_id)
         if client is not None:
-            ret = {"token": client.token, "code": 200}
+            ret = {"result": {"token": client.token}, "code": 200}
     if not ret:
         ret = {"code": 300, "message": "获取token失败"}
     return HttpResponse(json.dumps(ret))
@@ -37,7 +37,7 @@ def refresh_nim_token(request):
             if token is not None:
                 client.token = token
                 client.save()
-                ret = {"token": token, "code": 200}
+                ret = {"result": {"token": client.token}, "code": 200}
     if not ret:
         ret = {"code": 300, "message": "刷新token失败"}
     return HttpResponse(json.dumps(ret))
