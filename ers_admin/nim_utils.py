@@ -8,7 +8,6 @@ import hashlib
 
 import requests
 from requests import HTTPError
-from .models import Client
 
 import sys_constant
 from requests import adapters
@@ -138,6 +137,7 @@ class NimUtils:
                 return False
             # 从网易获取所有好友账号， 然后从关联其它资料
             client_list = []
+            from models import Client
             for friend in ret_json["friends"]:
                 faccid = friend.faccid
                 if not faccid:
@@ -178,7 +178,8 @@ if __name__ == "__main__":
     nim = NimUtils()
     #print nim.__get_nim_header_sign()
     # print nim.create_nim_user('test_2')
-    print nim.refresh_nim_token('234234lkjkjwerf')
+    # print nim.refresh_nim_token('234234lkjkjwerf')
     # print nim.disable_nim_user('test_1')
     # print nim.active_nim_user('test_1')
+    print nim.get_nim_friends("356521041000146")
 

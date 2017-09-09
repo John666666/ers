@@ -14,7 +14,7 @@ except ImportError:
 class SimpleMiddleware(MiddlewareMixin):
     def process_request(self, request):
         print request.path
-        if request.path.find("login") == -1 and request.path != '/Web/CheckCode/':
+        if request.path.find("login") == -1 and request.path.find("ers_api") == -1 and request.path != '/Web/CheckCode/':
             user = request.session.get("user", None)
             if user and user == sys_constant.admin_count:
                 pass

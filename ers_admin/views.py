@@ -70,7 +70,7 @@ def list_client(request):
         kwargs["status"] = status
 
     currentPage = request.POST.get("pageNum", 1)
-    client_list = Client.getall(**kwargs)
+    client_list = Client.getall(**kwargs).exclude(client_id=sys_constant.admin_count)
     pageObj = paginator.Paginator(client_list, sys_constant.pageSize)
     context = {"client_list": pageObj.page(currentPage), "currentPage": currentPage, "totalSize": pageObj.count,
                "client_id": client_id, "client_name": client_name, "status": status}
@@ -80,7 +80,7 @@ def browse_client(request):
     u"""
         不分布查询所有终端
     """
-    client_list = Client.getall()
+    client_list = Client.getall().exclude(client_id=sys_constant.admin_count)
     context = {"client_list": client_list}
     return HttpResponse(render(request, "client_interaction.html", context))
 

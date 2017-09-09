@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^index$', views.index, name='index'),
     url(r'\.html', views.redirect_html, name='redirect'),
     url(r'^client_list', views.list_client, name='list_client'),
     url(r'^active_client', views.active_client, name='active_client'),
