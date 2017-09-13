@@ -8,6 +8,7 @@ from ers_admin.models import Client
 from ers_admin.nim_utils import NimUtils
 import json
 from .models import Locus
+import math
 # Create your views here.
 
 '''
@@ -49,8 +50,18 @@ def save_locus(request):
     client_id = request.POST["client_id"]
     longitude = request.POST["longitude"]
     latitude = request.POST["latitude"]
+    if not longitude or not latitude or not client_id:
+        return HttpResponse(json.dumps({"message": "必传参数为空!", "code": 300}, ensure_ascii=False))
     try:
-        Locus.save_locus(client_id, longitude, latitude)
+        client = Locus.getall(client_id=client_id).order_by("create_time").reverse().first()
+        if not client:
+            Locus.save_locus(client_id, longitude, latitude)
+        else:
+            old_long, old_lat = client.longitude, client.latitude
+            if math.fabs(old_long - float(longitude)) > 0.0005 and math.fabs(old_lat - float(latitude)) > 0.0005:
+                Locus.save_locus(client_id, longitude, latitude)
+            else:
+                pass  #距离太小， 通常是定位精度误差， 忽略
         return HttpResponse(json.dumps({"message": "保存成功", "code": 200}, ensure_ascii=False))
     except Exception, e:
         return HttpResponse(json.dumps({"message": "%s" % e, "code": 300}, ensure_ascii=False))

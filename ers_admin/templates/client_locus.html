@@ -6,53 +6,58 @@
     // 百度地图API功能
     var map = new BMap.Map("mapContainer");
     var center = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(center, 16);
+    map.enableScrollWheelZoom();
 
-    map.centerAndZoom(center, 15);
+    var clientListJson = JSON.parse("{{ locus_list|escapejs }}");
 
-    var data_info = [[116.417854, 39.921988, "2017/9/7 10:59:23"],
-        [116.406605, 39.921585, "2017/9/7 11:13:55"],
-        [116.412222, 39.912345, "2017/9/7 11:34:46"]
-    ];
+    if(clientListJson) {
 
-    var start_icon = new BMap.Icon("http://api0.map.bdimg.com/images/dest_markers.png",
-            new BMap.Size(33,33), {imageOffset: new BMap.Size(0, 0)});
+        var start_icon = new BMap.Icon("http://api0.map.bdimg.com/images/dest_markers.png",
+                new BMap.Size(33,33), {imageOffset: new BMap.Size(0, 0)});
 
-    var end_icon = new BMap.Icon("http://api0.map.bdimg.com/images/dest_markers.png",
-            new BMap.Size(33,33), {imageOffset: new BMap.Size(0, -33)});
+        var end_icon = new BMap.Icon("http://api0.map.bdimg.com/images/dest_markers.png",
+                new BMap.Size(33,33), {imageOffset: new BMap.Size(0, -33)});
 
-    var polylinePoints = [];
-    for (var i = 0; i < data_info.length; i++) {
-        var point = new BMap.Point(data_info[i][0], data_info[i][1]);
-        polylinePoints.push(point);
-        var tipContent = "<h4>时间：" + data_info[i][2] + "</h4>";
-        var infoWindow = new BMap.InfoWindow(tipContent);  // 创建信息窗口对象
-        var marker = null;
-        if (i == 0) {
-            //起点
-            marker = new BMap.Marker(point, {icon: start_icon});
-        } else if (i == data_info.length - 1) {
-            //终点
-            marker = new BMap.Marker(point, {icon: end_icon});
-        } else {
-            //中间点
-            marker = new BMap.Marker(point);
-        }
-        if(marker) {
-            map.addOverlay(marker);
-            marker.addEventListener("click", function () {
-                this.openInfoWindow(infoWindow);
-            });
-            /*
-            marker.addEventListener("mouseover", function () {
+        var polylinePoints = [];
+        for (var i = 0; i < clientListJson.length; i++) {
+            var point = new BMap.Point(clientListJson[i]["longitude"], clientListJson[i]["latitude"]);
+            if(i == 0) {
+                center = point;
+                map.centerAndZoom(center, 16);
+            }
+            console.log(point);
+            polylinePoints.push(point);
+            var tipContent = "<h4>时间：" + clientListJson[i]["create_time"] + "</h4>";
+            var infoWindow = new BMap.InfoWindow(tipContent);  // 创建信息窗口对象
+            var marker = null;
+            if (i == 0 && clientListJson.length > 3) {
+                //起点
+                marker = new BMap.Marker(point, {icon: start_icon});
+            } else if (i == clientListJson.length - 1 && clientListJson.length > 3) {
+                //终点
+                marker = new BMap.Marker(point, {icon: end_icon});
+            } else {
+                //中间点
+                marker = new BMap.Marker(point);
+            }
+            if(marker) {
+                map.addOverlay(marker);
+                marker.addEventListener("click", function () {
                     this.openInfoWindow(infoWindow);
                 });
-                marker.addEventListener("mouseout", function () {
-                    this.closeInfoWindow();
-                });*/
-            }
+                /*
+                marker.addEventListener("mouseover", function () {
+                        this.openInfoWindow(infoWindow);
+                    });
+                    marker.addEventListener("mouseout", function () {
+                        this.closeInfoWindow();
+                    });*/
+                }
         }
         if(polylinePoints.length > 0) {
             var polyline = new BMap.Polyline(polylinePoints, {strokeColor:"blue", strokeWeight:5, strokeOpacity:0.5});
             map.addOverlay(polyline);
         }
+    }
     </script>

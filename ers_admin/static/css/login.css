@@ -1,0 +1,38 @@
+* {
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+html,body {
+	width:100%;
+	height:100%;
+}
+
+body {
+	background: #444 url(http://sandbox.runjs.cn/uploads/rs/418/nkls38xx/carbon_fibre_big.png);
+}
+
+.login-box {
+	background-color: white;
+	border-radius: 8px;
+	position: absolute;
+	box-shadow: 0 0 15px #222;
+	width: 320px;
+	height: 240px;
+	top: 50%;
+	left: 50%;
+	margin-left: -160px;
+	margin-top: -120px;
+	padding: 10px 20px;
+	padding-top: 30px;
+}
+
+.login-box button {
+	margin-top: 30px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.login-box .form-group {
+	padding-top: 5px;
+}
