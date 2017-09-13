@@ -6,8 +6,8 @@ pageSize = 20
 
 
 ##网易云
-nim_appKey = "0b5b35b3ae850065d8f146fc23af0704"
-nim_appSecret = "fe1932731060"
+nim_appKey = "8234kjhidsfkmn235489234kjh"
+nim_appSecret = "345kldsfklsdf"
 
 ## admin
 admin_count = "ers_admin"
